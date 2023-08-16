@@ -127,18 +127,30 @@ public class Appointments {
 		System.out.println("-------DELETE APPOINTMENT-------");
 
 		System.out.println("Enter Appointment ID");
-		int p_id = sc.nextInt();
+		int a_id = sc.nextInt();
+
+		System.out.println("Enter appointment ID again");
+		int a2_id = sc.nextInt();
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Doctor_Appointment", "root",
 				"The#1password");
 		Statement st = con.createStatement();
-		String deleteQuery = "delete from Appointments where app_id = " + p_id + ";";
-		int res = st.executeUpdate(deleteQuery);
+		String deleteQuery = "delete from Appointments where app_id = " + a_id + ";";
+		try {
+			if (a_id == a2_id) {
+				int res = st.executeUpdate(deleteQuery);
+
 		if (res == 0) {
-			System.out.println("\nAppointment not deleted");
+					System.out.println("\nAppointment not deleted\n");
 		} else {
-			System.out.println("\nAppointment deleted succesfully");
+					System.out.println("\nAppointment deleted successfully\n");
+		}
+			} else {
+				System.out.println("\nIDs don't match\n");
+			}
+		} catch (Exception e) {
+			System.out.println("\nDeletio0n failed. Try again.\n");
 		}
 		System.out.println("---------------------------------");
 

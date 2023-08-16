@@ -266,19 +266,27 @@ public class Patients {
 		System.out.println("Enter Patient ID");
 		int p_id = sc.nextInt();
 
+		System.out.println("Enter Patient ID again");
+		int p2_id = sc.nextInt();
+
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Doctor_Appointment", "root",
 				"The#1password");
 		Statement st = con.createStatement();
 		String deleteQuery = "delete from Patients where pat_id = " + p_id + ";";
 		try {
-		int res = st.executeUpdate(deleteQuery);
+			if (p_id == p2_id) {
+				int res = st.executeUpdate(deleteQuery);
+
 
 		if (res == 0) {
 			System.out.println("\nPatient not deleted\n");
 		} else {
 			System.out.println("\nPatient deleted successfully\n");
 		}
+	} else {
+		System.out.println("\nIDs don't match\n");
+	}
 	} catch (Exception e) {
 		System.out.println("\nYou can't delete a patient having an appointment. Delete the appointment first.\n");
 	}
